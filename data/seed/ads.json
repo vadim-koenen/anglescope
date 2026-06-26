@@ -1,0 +1,182 @@
+[
+  {
+    "sourceId": "seed-health-001",
+    "source": "seeded",
+    "platform": "tiktok",
+    "advertiser": "Seed fixture: supplement lead-gen offer",
+    "mediaUrl": "/seed-media/health-quiz.svg",
+    "mediaType": "image",
+    "caption": "Answer a 30-second wellness quiz to see the routine people are using after 40.",
+    "firstSeen": "2026-05-02",
+    "lastSeen": "2026-06-21",
+    "metrics": {
+      "engagementIndex": 74
+    },
+    "landingUrl": "https://example.com/seed-health-quiz",
+    "verticals": ["health", "supplement", "weight loss supplement", "quiz"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "People over 40 are trying this 30-second wellness quiz",
+      "primaryAngle": "Personalized quiz diagnosis",
+      "secondaryAngles": ["age-specific problem", "low-friction discovery"],
+      "emotion": "curiosity",
+      "format": "quiz lead-gen",
+      "offerMechanic": "quiz/lead-gen",
+      "targetAudience": "Adults 40+ researching health or weight-management routines",
+      "cta": "Take the quiz",
+      "claims": ["30-second quiz", "routine for people after 40"],
+      "complianceRisk": "medium",
+      "whyItWorks": "A quiz turns a broad supplement pitch into a personal diagnosis. It lowers commitment while collecting intent-rich leads."
+    }
+  },
+  {
+    "sourceId": "seed-health-002",
+    "source": "seeded",
+    "platform": "meta",
+    "advertiser": "Seed fixture: transformation offer",
+    "mediaUrl": "/seed-media/transformation.svg",
+    "mediaType": "image",
+    "caption": "Three small daily swaps that helped customers feel lighter without changing every meal.",
+    "firstSeen": "2026-04-18",
+    "lastSeen": "2026-06-20",
+    "metrics": {
+      "engagementIndex": 69
+    },
+    "landingUrl": "https://example.com/seed-transformation",
+    "verticals": ["health", "weight loss supplement", "transformation"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "Three tiny swaps that changed the scale",
+      "primaryAngle": "Before-after transformation",
+      "secondaryAngles": ["small habit change", "customer proof"],
+      "emotion": "desire",
+      "format": "before/after",
+      "offerMechanic": "trial offer",
+      "targetAudience": "Diet-conscious adults seeking simple routines",
+      "cta": "See the swaps",
+      "claims": ["customers felt lighter", "three daily swaps"],
+      "complianceRisk": "high",
+      "whyItWorks": "Transformation framing makes the outcome concrete and fast to understand. The small-swap setup keeps the promise from feeling overwhelming."
+    }
+  },
+  {
+    "sourceId": "seed-finance-001",
+    "source": "seeded",
+    "platform": "taboola",
+    "advertiser": "Seed fixture: insurance quote funnel",
+    "mediaUrl": "/seed-media/insurance.svg",
+    "mediaType": "image",
+    "caption": "Drivers in select states are checking whether they overpay after one quick form.",
+    "firstSeen": "2026-04-07",
+    "lastSeen": "2026-06-19",
+    "metrics": {
+      "engagementIndex": 81
+    },
+    "landingUrl": "https://example.com/seed-insurance",
+    "verticals": ["finance", "insurance", "auto insurance", "lead gen"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "Drivers in your state may be overpaying",
+      "primaryAngle": "Localized savings gap",
+      "secondaryAngles": ["loss aversion", "quick eligibility check"],
+      "emotion": "fear",
+      "format": "native advertorial",
+      "offerMechanic": "quote comparison",
+      "targetAudience": "Cost-conscious auto insurance shoppers",
+      "cta": "Check rates",
+      "claims": ["drivers may be overpaying", "quick form"],
+      "complianceRisk": "medium",
+      "whyItWorks": "Local relevance makes the savings claim feel immediate. The overpaying frame creates a concrete loss to resolve."
+    }
+  },
+  {
+    "sourceId": "seed-solar-001",
+    "source": "seeded",
+    "platform": "meta",
+    "advertiser": "Seed fixture: solar lead-gen offer",
+    "mediaUrl": "/seed-media/solar.svg",
+    "mediaType": "image",
+    "caption": "Homeowners are checking whether their roof qualifies before utility prices rise again.",
+    "firstSeen": "2026-05-13",
+    "lastSeen": "2026-06-22",
+    "metrics": {
+      "engagementIndex": 77
+    },
+    "landingUrl": "https://example.com/seed-solar",
+    "verticals": ["solar", "home services", "lead gen"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "Does your roof qualify before rates rise again?",
+      "primaryAngle": "Eligibility before price increase",
+      "secondaryAngles": ["urgency", "homeowner qualification"],
+      "emotion": "urgency",
+      "format": "lead-gen explainer",
+      "offerMechanic": "eligibility check",
+      "targetAudience": "Homeowners comparing energy costs",
+      "cta": "Check your roof",
+      "claims": ["roof qualification", "utility prices may rise"],
+      "complianceRisk": "medium",
+      "whyItWorks": "Qualification language is less pushy than a direct purchase pitch. The price-rise frame gives homeowners a reason to act now."
+    }
+  },
+  {
+    "sourceId": "seed-ecom-001",
+    "source": "seeded",
+    "platform": "tiktok",
+    "advertiser": "Seed fixture: e-commerce gadget",
+    "mediaUrl": "/seed-media/demo.svg",
+    "mediaType": "image",
+    "caption": "A side-by-side demo shows why the new tool beats the old way in under 10 seconds.",
+    "firstSeen": "2026-05-25",
+    "lastSeen": "2026-06-23",
+    "metrics": {
+      "engagementIndex": 66
+    },
+    "landingUrl": "https://example.com/seed-demo",
+    "verticals": ["ecommerce", "as seen on tv", "demo"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "The old way takes 4 steps. This takes 1.",
+      "primaryAngle": "Problem-solution demo",
+      "secondaryAngles": ["speed contrast", "visual proof"],
+      "emotion": "desire",
+      "format": "product demo",
+      "offerMechanic": "limited-time discount",
+      "targetAudience": "Impulse buyers looking for practical gadgets",
+      "cta": "Shop now",
+      "claims": ["old way takes four steps", "new tool takes one step"],
+      "complianceRisk": "low",
+      "whyItWorks": "A visual contrast compresses the value proposition into seconds. The ad lets the product prove the claim without heavy copy."
+    }
+  },
+  {
+    "sourceId": "seed-finance-002",
+    "source": "seeded",
+    "platform": "google",
+    "advertiser": "Seed fixture: debt relief quote funnel",
+    "mediaUrl": "/seed-media/finance.svg",
+    "mediaType": "image",
+    "caption": "See whether your balance qualifies for a lower-payment program in minutes.",
+    "firstSeen": "2026-03-30",
+    "lastSeen": "2026-06-18",
+    "metrics": {
+      "engagementIndex": 72
+    },
+    "landingUrl": "https://example.com/seed-debt",
+    "verticals": ["finance", "lead gen", "debt"],
+    "sourceDisclosure": "Starter Day 1 fixture. Replace with curated public ad-library screenshots before final submission.",
+    "analysis": {
+      "hook": "Your balance may qualify for a lower-payment program",
+      "primaryAngle": "Eligibility before commitment",
+      "secondaryAngles": ["financial relief", "private check"],
+      "emotion": "trust",
+      "format": "search-to-landing-page",
+      "offerMechanic": "eligibility check",
+      "targetAudience": "Consumers comparing debt relief options",
+      "cta": "Check eligibility",
+      "claims": ["balance may qualify", "lower-payment program"],
+      "complianceRisk": "medium",
+      "whyItWorks": "The ad avoids a hard promise and invites a private eligibility check. That reduces perceived risk for a sensitive financial category."
+    }
+  }
+]

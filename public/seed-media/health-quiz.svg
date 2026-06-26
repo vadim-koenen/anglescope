@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Wellness quiz seed visual">
+  <rect width="720" height="480" fill="#f7faf8"/>
+  <rect x="54" y="54" width="612" height="372" rx="18" fill="#ffffff" stroke="#cfd9d5" stroke-width="3"/>
+  <circle cx="176" cy="175" r="64" fill="#2d8c75"/>
+  <path d="M151 176h50M176 151v50" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+  <text x="270" y="155" fill="#12312b" font-family="Arial, sans-serif" font-size="36" font-weight="700">30-second quiz</text>
+  <text x="270" y="207" fill="#4f635d" font-family="Arial, sans-serif" font-size="24">Find your routine after 40</text>
+  <rect x="270" y="256" width="250" height="58" rx="8" fill="#f6a51a"/>
+  <text x="305" y="293" fill="#3a2506" font-family="Arial, sans-serif" font-size="22" font-weight="700">Take the quiz</text>
+</svg>

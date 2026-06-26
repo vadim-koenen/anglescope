@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Finance seed visual">
+  <rect width="720" height="480" fill="#fbfcfb"/>
+  <rect x="100" y="86" width="520" height="310" rx="16" fill="#ffffff" stroke="#ced8d4" stroke-width="3"/>
+  <text x="142" y="150" fill="#16202a" font-family="Arial, sans-serif" font-size="32" font-weight="700">Check eligibility</text>
+  <rect x="142" y="193" width="436" height="44" rx="7" fill="#eef2f1"/>
+  <rect x="142" y="258" width="316" height="44" rx="7" fill="#eef2f1"/>
+  <rect x="142" y="323" width="228" height="44" rx="7" fill="#2d8c75"/>
+  <text x="176" y="352" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="700">Start private check</text>
+</svg>

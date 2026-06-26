@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AnalysisRun {
+  id        String   @id @default(cuid())
+  query     String
+  sources   String[]
+  clusters  Json?
+  createdAt DateTime @default(now())
+  ads       Ad[]
+}
+
+model Ad {
+  id         String      @id @default(cuid())
+  runId      String?
+  run        AnalysisRun? @relation(fields: [runId], references: [id], onDelete: SetNull)
+  source     String
+  sourceId   String
+  platform   String
+  advertiser String?
+  mediaUrl   String
+  mediaType  String
+  caption    String?
+  firstSeen  DateTime?
+  lastSeen   DateTime?
+  metrics    Json?
+  landingUrl String?
+  raw         Json?
+  analysis   AdAnalysis?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@unique([source, sourceId])
+  @@index([platform])
+}
+
+model AdAnalysis {
+  id              String   @id @default(cuid())
+  adId            String   @unique
+  ad              Ad       @relation(fields: [adId], references: [id], onDelete: Cascade)
+  hook            String
+  primaryAngle    String
+  secondaryAngles String[]
+  emotion         String
+  format          String
+  offerMechanic   String
+  targetAudience  String
+  cta             String
+  claims          String[]
+  complianceRisk  String
+  whyItWorks      String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

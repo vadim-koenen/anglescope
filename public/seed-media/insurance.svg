@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Insurance seed visual">
+  <rect width="720" height="480" fill="#f8fafc"/>
+  <path d="M105 285h510l-38-96H151z" fill="#19324a"/>
+  <path d="M185 189h350l-48-62H233z" fill="#2d8c75"/>
+  <circle cx="218" cy="315" r="42" fill="#f6a51a"/>
+  <circle cx="502" cy="315" r="42" fill="#f6a51a"/>
+  <text x="150" y="108" fill="#16202a" font-family="Arial, sans-serif" font-size="34" font-weight="700">Are you overpaying?</text>
+  <rect x="205" y="374" width="310" height="48" rx="7" fill="#ffffff" stroke="#cfd9d5" stroke-width="3"/>
+  <text x="252" y="406" fill="#19324a" font-family="Arial, sans-serif" font-size="22" font-weight="700">Check local rates</text>
+</svg>

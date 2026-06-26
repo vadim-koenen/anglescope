@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Solar seed visual">
+  <rect width="720" height="480" fill="#f9fbf7"/>
+  <circle cx="576" cy="104" r="52" fill="#f6a51a"/>
+  <path d="M117 284 360 112l243 172v122H117z" fill="#263845"/>
+  <path d="M206 284h308v122H206z" fill="#38576a"/>
+  <g fill="#68b89f">
+    <rect x="231" y="305" width="76" height="40" rx="3"/>
+    <rect x="322" y="305" width="76" height="40" rx="3"/>
+    <rect x="413" y="305" width="76" height="40" rx="3"/>
+    <rect x="231" y="355" width="76" height="40" rx="3"/>
+    <rect x="322" y="355" width="76" height="40" rx="3"/>
+    <rect x="413" y="355" width="76" height="40" rx="3"/>
+  </g>
+  <text x="130" y="76" fill="#16202a" font-family="Arial, sans-serif" font-size="32" font-weight="700">Does your roof qualify?</text>
+</svg>

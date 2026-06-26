@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Transformation seed visual">
+  <rect width="720" height="480" fill="#fbfbfc"/>
+  <rect x="70" y="82" width="250" height="300" rx="14" fill="#dde4e8"/>
+  <rect x="400" y="82" width="250" height="300" rx="14" fill="#d5efe3"/>
+  <text x="145" y="415" fill="#47515c" font-family="Arial, sans-serif" font-size="24" font-weight="700">Before</text>
+  <text x="486" y="415" fill="#0b6f54" font-family="Arial, sans-serif" font-size="24" font-weight="700">After</text>
+  <path d="M340 235h50" stroke="#f6a51a" stroke-width="18" stroke-linecap="round"/>
+  <path d="m374 204 32 31-32 31" fill="none" stroke="#f6a51a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="195" cy="205" r="70" fill="#8fa1ad"/>
+  <circle cx="525" cy="205" r="70" fill="#2d8c75"/>
+</svg>

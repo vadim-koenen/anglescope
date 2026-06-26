@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Product demo seed visual">
+  <rect width="720" height="480" fill="#f8fafc"/>
+  <rect x="72" y="108" width="244" height="260" rx="14" fill="#e1e7eb"/>
+  <rect x="404" y="108" width="244" height="260" rx="14" fill="#daf1e7"/>
+  <text x="134" y="82" fill="#47515c" font-family="Arial, sans-serif" font-size="26" font-weight="700">4 steps</text>
+  <text x="476" y="82" fill="#0b6f54" font-family="Arial, sans-serif" font-size="26" font-weight="700">1 step</text>
+  <path d="M130 183h128M130 232h128M130 281h128" stroke="#8897a1" stroke-width="17" stroke-linecap="round"/>
+  <circle cx="526" cy="238" r="72" fill="#2d8c75"/>
+  <path d="m491 239 24 24 50-58" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="252" y="400" width="216" height="48" rx="8" fill="#f6a51a"/>
+  <text x="302" y="432" fill="#3a2506" font-family="Arial, sans-serif" font-size="22" font-weight="700">See demo</text>
+</svg>
