@@ -52,3 +52,5 @@ Near-term build steps would be:
 The project is intentionally practical rather than theatrical. It uses Next.js, TypeScript, Tailwind, zod, Prisma scaffolding, source adapters, and OpenAI-ready structured generation/deconstruction paths. It remains demoable without API keys through validated seed data and deterministic fallbacks.
 
 The main thing I wanted to show is fit for the role: marketing judgment, AI implementation skill, data realism, and the ability to turn an ambiguous business workflow into a usable internal tool.
+
+Rights note: AngleScope is public for evaluation in this hiring challenge, but it is not open source. I retain all rights to the product, source, and concept unless there is a separate written agreement for commercial use, internal deployment, acquisition, or transfer of rights.

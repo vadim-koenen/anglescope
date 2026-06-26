@@ -92,3 +92,9 @@ public/seed-media     Starter fixture visuals
 ## Data Posture
 
 The current seed file is a Day 1 wiring fixture and is labeled that way in the data. Before final submission, replace or augment those starter fixtures with curated screenshots or stills from public ad libraries, keep metrics honest, and mark unavailable metrics as unknown. Live TikTok ingestion should augment the seed set, not become a demo dependency.
+
+## Rights And License
+
+Copyright (c) 2026 Vadim Koenen. All rights reserved.
+
+This repository is public for evaluation in the It's Today Media Build Challenge and related hiring review. It is not open source. No permission is granted to copy, modify, distribute, host, deploy, commercialize, create derivative works from, or use AngleScope for internal, commercial, or production purposes without prior written permission and a separate agreement. See [LICENSE](LICENSE).
