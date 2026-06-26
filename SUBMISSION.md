@@ -18,7 +18,7 @@ https://github.com/vadim-koenen/anglescope
 
 AngleScope is a creative intelligence engine for affiliate and performance marketing teams. It helps a media buyer analyze ad examples, identify recurring winning angles, and turn those patterns into new creative concepts for an offer.
 
-The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The full Next.js app includes structured API routes, zod validation, OpenAI-ready vision deconstruction, OpenAI-ready creative generation, deterministic fallbacks, seeded ad examples, and manual ad URL input. The GitHub Pages demo keeps the core workflow clickable even without deployment credentials.
+The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The live demo runs the full workflow in the browser: paste an OpenAI API key to generate concepts live with the model, or leave it blank to use deterministic concepts grounded in the same angle evidence. The full Next.js app adds structured API routes, zod validation, server-side OpenAI vision deconstruction and creative generation, seeded ad examples, and manual ad URL input — and is ready to deploy on Vercel for server-side AI (see DEPLOY_VERCEL.md).
 
 ## Why Did You Build THIS One?
 
@@ -53,4 +53,4 @@ The project is intentionally practical rather than theatrical. It uses Next.js, 
 
 The main thing I wanted to show is fit for the role: marketing judgment, AI implementation skill, data realism, and the ability to turn an ambiguous business workflow into a usable internal tool.
 
-Rights note: AngleScope is public for evaluation in this hiring challenge, but it is not open source. I retain all rights to the product, source, and concept unless there is a separate written agreement for commercial use, internal deployment, acquisition, or transfer of rights.
+Rights note: This repo is shared for you to evaluate as part of the challenge. Per the contest rules, I keep ownership of the code unless I accept the role — at which point it's yours, and I'd be glad to bring it in-house and keep building on it with the team.
