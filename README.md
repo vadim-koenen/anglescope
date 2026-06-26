@@ -2,6 +2,14 @@
 
 AngleScope is a creative intelligence engine for affiliate and performance marketing teams. It analyzes public ad examples, deconstructs why each one works, clusters recurring winning angles, and prepares the evidence needed to generate new creative concepts for a buyer's offer.
 
+## Why This Is My Submission
+
+I built AngleScope to make the strongest case that I understand the actual work of a performance marketing team, not just how to wrap an LLM in a nice interface.
+
+The marketing thesis is simple: in affiliate media buying, creative angle discovery is often the highest-leverage part of the job. Bids, budgets, and dashboards matter, but a campaign usually lives or dies on whether the hook, offer framing, proof pattern, and landing-page promise are strong enough to earn profitable intent. Media buyers already do this manually by scrolling ad libraries, saving examples, pattern-matching what is running longest, and turning those patterns into new tests. AngleScope turns that workflow into software.
+
+The engineering thesis is equally important: useful internal tools should be honest about their data boundaries. I deliberately avoided building a fake cross-platform spend dashboard because I do not have It's Today Media's private ad-account credentials as an outside contestant. Instead, this project focuses on a workflow that can work with public ad data, user-supplied examples, and eventually the company's own performance data after hire.
+
 ## What Does This Tool Do?
 
 The app lets a user enter a vertical, paste a manual ad media URL, run an analysis, inspect an ad inventory, see ranked winning-angle clusters, choose an angle, enter offer details, and generate new creative concepts with JSON/CSV export. `/api/analyze` loads `/data/seed/ads.json`, validates fixtures with zod, computes longevity and strength scores, and returns evidence-backed angle clusters. Manual ads flow through the same `AdSource` interface as seed data. When `useAi=true` and `OPENAI_API_KEY` is configured, the route can run OpenAI vision deconstruction for fully qualified remote or data-URL media, then falls back to saved or generic analysis when AI is unavailable. `/api/generate` uses OpenAI structured outputs when configured and otherwise returns deterministic, evidence-grounded concepts from the same response contract.
@@ -12,9 +20,19 @@ In affiliate media buying, angle and creative discovery is often the highest-ROI
 
 This is deliberately not a spend dashboard. A dashboard would only become valuable after connecting It's Today Media's real Meta, Google, TikTok, and Taboola accounts. AngleScope starts with the part of the workflow that can work on public data today: finding winning angles and turning them into new testable creative.
 
+## What This Demonstrates
+
+- Marketing judgment: I chose a workflow tied to creative testing velocity, not a generic chatbot or vanity dashboard.
+- Data realism: the demo is explicit about what is seeded, what is manual, and what would require internal credentials.
+- AI product sense: model output is constrained behind zod schemas and deterministic fallbacks, so the tool remains usable when an API key or live source is unavailable.
+- Extensible architecture: sources are behind an `AdSource` interface, AI concerns live under `lib/ai`, and the Prisma schema is ready for persisted analysis runs.
+- Operator empathy: the UI supports the actual loop a buyer would run: search a vertical, inspect examples, select an angle, draft concepts, and export.
+
 ## What's Next?
 
-Next I would persist analyses in Postgres through Prisma, add the TikTok Creative Center live adapter behind the `AdSource` interface, and upgrade manual input from media URLs to stored uploads. If this became a full-time internal tool, I would connect It's Today Media's own performance data so the system could correlate creative attributes with ROAS, flag compliance risk before launch, and generate landing-page variants matched to each winning ad angle.
+If this became my full-time job, I would close the loop between creative intelligence and performance. First I would connect It's Today Media's own Meta, Google, TikTok, Taboola, landing-page, and lead-quality data so AngleScope could learn from the company's winners and losers instead of only public examples. Then I would correlate creative attributes with ROAS, CPL, lead quality, approval risk, and funnel drop-off. From there, the product becomes a creative operating system: find winning angles, generate compliant variants, match each angle to a landing-page or advertorial treatment, and recommend the next tests based on actual business outcomes.
+
+Near-term build steps would be: persist analyses in Postgres through Prisma, add the TikTok Creative Center live adapter behind the `AdSource` interface, upgrade manual input from media URLs to stored uploads, add compliance pre-flight checks, and create a weekly "angle opportunities" report for the buying team.
 
 ## Stack
 
@@ -44,6 +62,8 @@ npm run build
 ```
 
 Set `OPENAI_API_KEY` in Vercel to enable model-backed deconstruction and generation. `DATABASE_URL` is reserved for the Prisma persistence milestone; the current demo does not require a database connection to run.
+
+If Vercel auth is unavailable, the repository also includes a static `index.html` demo that can be served by GitHub Pages. That static demo runs the same core buyer workflow in-browser from the seed dataset, while the full Next.js source remains available for technical review.
 
 ## Environment Variables
 

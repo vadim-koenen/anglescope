@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AngleScope Static Demo</title>
+    <style>
+      :root {
+        --background: #f7f9fb;
+        --foreground: #172033;
+        --panel: #ffffff;
+        --muted: #e9eef4;
+        --muted-text: #5f6c7b;
+        --border: #d8e0ea;
+        --primary: #137b69;
+        --accent: #f4a51c;
+        --danger: #c71f46;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: var(--background);
+        color: var(--foreground);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      header {
+        border-bottom: 1px solid var(--border);
+        background: var(--panel);
+      }
+
+      .wrap {
+        width: min(1280px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        display: grid;
+        gap: 16px;
+        padding: 20px 0;
+      }
+
+      .top-row,
+      .section-title,
+      .concept-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+
+      .subtle {
+        color: var(--muted-text);
+      }
+
+      .badges,
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 4px 8px;
+        background: rgba(19, 123, 105, 0.12);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .badge.neutral {
+        border-color: var(--border);
+        background: var(--muted);
+        color: var(--muted-text);
+      }
+
+      .badge.accent {
+        background: rgba(244, 165, 28, 0.18);
+        color: #6f4500;
+      }
+
+      .badge.danger {
+        background: rgba(199, 31, 70, 0.12);
+        color: var(--danger);
+      }
+
+      .controls,
+      .manual-controls,
+      .offer-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .controls {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        align-items: end;
+      }
+
+      .manual-controls {
+        grid-template-columns: minmax(220px, 1.2fr) minmax(180px, 0.7fr) 130px minmax(220px, 1fr);
+        align-items: end;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #fbfcfd;
+        padding: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      input,
+      textarea,
+      select {
+        min-height: 40px;
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: #ffffff;
+        color: var(--foreground);
+        padding: 9px 10px;
+        outline: none;
+      }
+
+      textarea {
+        min-height: 92px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(19, 123, 105, 0.18);
+      }
+
+      .button {
+        min-height: 40px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--primary);
+        color: #ffffff;
+        padding: 9px 14px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .button.secondary {
+        border: 1px solid var(--border);
+        background: #ffffff;
+        color: var(--foreground);
+      }
+
+      .button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
+      main.wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+        gap: 18px;
+        padding: 20px 0 40px;
+      }
+
+      .panel-stack,
+      aside {
+        display: grid;
+        align-content: start;
+        gap: 16px;
+      }
+
+      .grid-cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card,
+      .angle-button {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+      }
+
+      .card-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 160px;
+        border-bottom: 1px solid var(--border);
+        background: var(--muted);
+        padding: 14px;
+      }
+
+      .card-media img,
+      .card-media video {
+        max-height: 220px;
+        width: 100%;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .card-body {
+        display: grid;
+        gap: 12px;
+        padding: 14px;
+      }
+
+      dl {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 0;
+      }
+
+      dt {
+        color: var(--muted-text);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      dd {
+        margin: 2px 0 0;
+        font-weight: 700;
+      }
+
+      .angle-button {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .angle-button.selected {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(19, 123, 105, 0.16);
+      }
+
+      .empty,
+      .note,
+      .error {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 12px;
+        color: var(--muted-text);
+        font-size: 13px;
+      }
+
+      .empty {
+        padding: 48px 16px;
+        text-align: center;
+      }
+
+      .error {
+        border-color: rgba(199, 31, 70, 0.3);
+        background: rgba(199, 31, 70, 0.08);
+        color: var(--danger);
+      }
+
+      .offer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      @media (max-width: 980px) {
+        .top-row,
+        .section-title,
+        .concept-title {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .controls,
+        .manual-controls,
+        main.wrap,
+        .grid-cards,
+        .offer-grid,
+        .actions {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap header-inner">
+        <div class="top-row">
+          <div>
+            <h1>AngleScope</h1>
+            <p class="subtle">Creative intelligence workspace for ad-angle discovery.</p>
+          </div>
+          <div class="badges">
+            <span class="badge accent">Static demo</span>
+            <span class="badge accent">Analyze wired</span>
+            <span class="badge accent">Generate wired</span>
+            <span class="badge neutral">Full Next.js source in repo</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label>
+            Vertical
+            <input id="vertical" value="weight loss supplement" />
+          </label>
+          <label>
+            Keywords
+            <input id="keywords" value="quiz, transformation, doctor" />
+          </label>
+          <button id="analyze" class="button">Analyze</button>
+        </div>
+
+        <div class="manual-controls">
+          <label>
+            Manual media URL
+            <input id="manualMediaUrl" placeholder="https://..." />
+          </label>
+          <label>
+            Advertiser
+            <input id="manualAdvertiser" />
+          </label>
+          <label>
+            Type
+            <select id="manualMediaType">
+              <option value="image">image</option>
+              <option value="video">video</option>
+            </select>
+          </label>
+          <label>
+            Caption
+            <input id="manualCaption" />
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="panel-stack">
+        <div class="section-title">
+          <h2>Ad Inventory</h2>
+          <span id="adCount" class="subtle">No run yet</span>
+        </div>
+        <div id="error" class="error" hidden></div>
+        <div id="inventory" class="grid-cards"></div>
+        <div id="empty" class="empty">Run an analysis to load the seeded inventory.</div>
+      </section>
+
+      <aside>
+        <div class="section-title">
+          <h2>Winning Angles</h2>
+          <span class="subtle">Ranked by frequency x strength</span>
+        </div>
+        <div id="angles" class="panel-stack"></div>
+
+        <section class="card">
+          <div class="card-body">
+            <div class="concept-title">
+              <h2>Generate Concepts</h2>
+              <span id="selectedAngle" class="subtle">Run analysis first</span>
+            </div>
+            <div id="generationError" class="error" hidden></div>
+            <div class="offer-grid">
+              <label>
+                Product
+                <input id="product" value="LeanLife Metabolic Quiz" />
+              </label>
+              <label>
+                Audience
+                <input id="audience" value="adults over 40 comparing weight-management options" />
+              </label>
+              <label>
+                Key benefit
+                <input id="benefit" value="find a realistic routine that fits their body and schedule" />
+              </label>
+              <label>
+                Offer mechanic
+                <input id="mechanic" value="free quiz" />
+              </label>
+            </div>
+            <label>
+              Brand voice
+              <input id="voice" value="clear, direct, performance-marketing friendly" />
+            </label>
+            <label>
+              Compliance constraints
+              <textarea id="compliance">Do not promise weight loss results or imply medical endorsement.</textarea>
+            </label>
+            <div class="controls">
+              <label>
+                Concepts
+                <input id="conceptCount" type="number" min="1" max="10" value="6" />
+              </label>
+              <button id="generate" class="button">Generate</button>
+            </div>
+            <div class="actions">
+              <button id="copyAngles" class="button secondary">Angles JSON</button>
+              <button id="copyJson" class="button secondary">Concepts JSON</button>
+              <button id="copyCsv" class="button secondary">Concepts CSV</button>
+            </div>
+          </div>
+        </section>
+
+        <div id="concepts" class="panel-stack"></div>
+        <div id="notes" class="panel-stack"></div>
+      </aside>
+    </main>
+
+    <script>
+      const state = {
+        seedAds: [],
+        result: null,
+        selectedClusterId: null,
+        generation: null
+      };
+
+      const templates = [
+        {
+          platform: "tiktok",
+          format: "UGC problem reveal",
+          hook: ({ offer }) => `I tested ${offer.product} for ${offer.audience} who want to ${offer.keyBenefit}`,
+          copy: ({ angle, offer }) =>
+            `Most ${offer.audience} do not need another generic pitch. This starts with the same ${angle.name.toLowerCase()} pattern we saw in winning ads, then shows the one simple reason ${offer.product} is worth checking out: ${offer.keyBenefit}.`,
+          visual: ({ offer }) =>
+            `Creator opens with a direct-to-camera pain point, cuts to a quick product demo, then shows a simple before/after workflow around helping them ${offer.keyBenefit}.`,
+          cta: "See how it works"
+        },
+        {
+          platform: "meta",
+          format: "Quiz lead-gen static",
+          hook: ({ offer }) => `Not sure if ${offer.product} fits your situation?`,
+          copy: ({ angle, offer }) =>
+            `Answer a short check to see how ${offer.product} could help ${offer.audience} move toward one clear outcome: ${offer.keyBenefit}. The angle works because ${angle.whyItWorks}`,
+          visual: ({ offer }) =>
+            `Clean static image with a three-step checklist, a product cue, and a large quiz-style button tied to ${offer.offerMechanic}.`,
+          cta: "Take the check"
+        },
+        {
+          platform: "taboola",
+          format: "Native advertorial",
+          hook: ({ offer }) => `${capitalize(offer.audience)} are checking this before choosing ${offer.product}`,
+          copy: ({ angle, offer }) =>
+            `This advertorial adapts the proven ${angle.name.toLowerCase()} pattern into an educational opener, then explains the practical path to ${offer.keyBenefit} without making a hard-sell claim.`,
+          visual: ({ offer }) =>
+            `Editorial-style image with a realistic person reviewing a checklist, a product-adjacent prop, and a small ${offer.offerMechanic} badge.`,
+          cta: "Read the guide"
+        },
+        {
+          platform: "google",
+          format: "Search ad + landing hero",
+          hook: ({ offer }) => `${offer.product} for ${offer.audience}`,
+          copy: ({ offer }) =>
+            `Find out whether ${offer.product} is a fit. Built for ${offer.audience} looking for a practical way to ${offer.keyBenefit}, with a clear next step and no inflated promises.`,
+          visual: ({ offer }) =>
+            `Landing hero with concise headline, benefit bullets, trust markers, and a form tied to ${offer.offerMechanic}.`,
+          cta: "Check eligibility"
+        },
+        {
+          platform: "tiktok",
+          format: "Side-by-side demo",
+          hook: ({ offer }) => `The old way to ${offer.keyBenefit} versus the ${offer.product} way`,
+          copy: ({ angle, offer }) =>
+            `Open on the frustrating current workflow, then contrast it with ${offer.product}. The concept borrows from ${angle.name.toLowerCase()} by making the reason to act visible instead of abstract.`,
+          visual: ({ offer }) =>
+            `Split-screen demo: left side shows the messy old process, right side shows the cleaner path using ${offer.product}.`,
+          cta: "Compare options"
+        },
+        {
+          platform: "meta",
+          format: "Customer objection carousel",
+          hook: ({ offer }) => `Three questions ${offer.audience} ask before trying ${offer.product}`,
+          copy: ({ offer }) =>
+            `Each carousel card answers one objection, then brings the reader back to the core benefit: ${offer.keyBenefit}. Keep the tone ${offer.brandVoice.toLowerCase()} and specific.`,
+          visual: ({ offer }) =>
+            `Five-card carousel: problem, objection, proof cue, benefit, and ${offer.offerMechanic} CTA frame.`,
+          cta: "Get the details"
+        }
+      ];
+
+      const $ = (id) => document.getElementById(id);
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll("\"", "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function capitalize(value) {
+        const trimmed = String(value ?? "").trim();
+        return trimmed ? `${trimmed[0].toUpperCase()}${trimmed.slice(1)}` : value;
+      }
+
+      function daysBetween(start, end) {
+        if (!start || !end) {
+          return null;
+        }
+        const startMs = Date.parse(start);
+        const endMs = Date.parse(end);
+        if (!Number.isFinite(startMs) || !Number.isFinite(endMs)) {
+          return null;
+        }
+        return Math.max(0, Math.round((endMs - startMs) / 86400000));
+      }
+
+      function strengthScoreFor(ad) {
+        const longevityDays = daysBetween(ad.firstSeen, ad.lastSeen);
+        const longevityScore = longevityDays === null ? 35 : Math.min(85, 30 + longevityDays / 2);
+        const engagementScore = ad.metrics?.engagementIndex ? Math.min(95, ad.metrics.engagementIndex) : 50;
+        return Math.round(longevityScore * 0.65 + engagementScore * 0.35);
+      }
+
+      function matchesQuery(ad, vertical, keywords) {
+        const haystack = [
+          ad.advertiser,
+          ad.caption,
+          ad.analysis?.primaryAngle,
+          ad.analysis?.format,
+          ad.analysis?.offerMechanic,
+          ...(ad.verticals ?? [])
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        const needles = [vertical, keywords]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .split(/[\s,]+/)
+          .filter(Boolean);
+        return needles.length === 0 || needles.some((needle) => haystack.includes(needle));
+      }
+
+      function mediaUrlFor(ad) {
+        if (ad.mediaUrl?.startsWith("/seed-media/")) {
+          return `public${ad.mediaUrl}`;
+        }
+        return ad.mediaUrl;
+      }
+
+      function buildManualAd() {
+        const mediaUrl = $("manualMediaUrl").value.trim();
+        if (!mediaUrl) {
+          return null;
+        }
+        const today = new Date().toISOString().slice(0, 10);
+        return {
+          sourceId: `manual-${Date.now()}`,
+          source: "manual",
+          platform: "manual",
+          advertiser: $("manualAdvertiser").value.trim() || undefined,
+          mediaUrl,
+          mediaType: $("manualMediaType").value,
+          caption: $("manualCaption").value.trim() || undefined,
+          firstSeen: today,
+          lastSeen: today,
+          analysis: {
+            hook: $("manualCaption").value.trim() || "Manual ad creative",
+            primaryAngle: "Manual ad signal",
+            secondaryAngles: [],
+            emotion: "other",
+            format: $("manualMediaType").value === "video" ? "Video creative" : "Static creative",
+            offerMechanic: "Unknown",
+            targetAudience: "Unknown",
+            cta: "Unknown",
+            claims: [],
+            complianceRisk: "medium",
+            whyItWorks:
+              "This pasted ad is included in the same clustering workflow. The full Next.js build can run OpenAI vision deconstruction when API credentials are configured."
+          }
+        };
+      }
+
+      function buildClusters(ads) {
+        const groups = new Map();
+        for (const ad of ads) {
+          const key = ad.analysis.primaryAngle.toLowerCase();
+          groups.set(key, [...(groups.get(key) ?? []), ad]);
+        }
+        return Array.from(groups.entries())
+          .map(([key, group]) => {
+            const averageStrengthScore =
+              group.reduce((sum, ad) => sum + ad.strengthScore, 0) / Math.max(1, group.length);
+            return {
+              id: key.replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+              name: group[0].analysis.primaryAngle,
+              whyItWorks: group[0].analysis.whyItWorks,
+              frequency: group.length,
+              averageStrengthScore: Math.round(averageStrengthScore),
+              representativeAdIds: group.slice(0, 3).map((ad) => ad.sourceId),
+              supportingHooks: group.slice(0, 3).map((ad) => ad.analysis.hook)
+            };
+          })
+          .sort((a, b) => b.frequency * b.averageStrengthScore - a.frequency * a.averageStrengthScore);
+      }
+
+      function analyze() {
+        const vertical = $("vertical").value.trim();
+        const keywords = $("keywords").value.trim();
+        const matched = state.seedAds.filter((ad) => matchesQuery(ad, vertical, keywords));
+        const seedAds = (matched.length ? matched : state.seedAds).slice(0, 18);
+        const manualAd = buildManualAd();
+        const rawAds = manualAd ? [...seedAds, manualAd] : seedAds;
+        const ads = rawAds.map((ad) => ({
+          ...ad,
+          mediaUrl: mediaUrlFor(ad),
+          longevityDays: daysBetween(ad.firstSeen, ad.lastSeen),
+          strengthScore: strengthScoreFor(ad)
+        }));
+        const clusters = buildClusters(ads);
+        state.result = {
+          analysisId: `static-${Date.now()}`,
+          query: {
+            vertical,
+            keywords,
+            sources: manualAd ? ["seeded", "manual"] : ["seeded"],
+            limit: 18
+          },
+          ads,
+          clusters,
+          sourceNotes: [
+            "This GitHub Pages demo runs fully in the browser from validated seed data.",
+            "The full Next.js source includes API routes, OpenAI-ready structured generation, and vision deconstruction helpers."
+          ]
+        };
+        state.selectedClusterId = clusters[0]?.id ?? null;
+        state.generation = null;
+        render();
+      }
+
+      function selectedCluster() {
+        return (
+          state.result?.clusters.find((cluster) => cluster.id === state.selectedClusterId) ??
+          state.result?.clusters[0] ??
+          null
+        );
+      }
+
+      function offer() {
+        return {
+          product: $("product").value.trim(),
+          audience: $("audience").value.trim(),
+          keyBenefit: $("benefit").value.trim(),
+          brandVoice: $("voice").value.trim(),
+          offerMechanic: $("mechanic").value.trim(),
+          complianceConstraints: $("compliance").value.trim()
+        };
+      }
+
+      function complianceNote(currentOffer) {
+        const base =
+          "Keep claims specific to the offer proof, avoid guarantees, and preserve any required disclosures near the CTA.";
+        return currentOffer.complianceConstraints
+          ? `${base} Additional constraint: ${currentOffer.complianceConstraints}`
+          : base;
+      }
+
+      function generate() {
+        const angle = selectedCluster();
+        if (!angle) {
+          $("generationError").hidden = false;
+          $("generationError").textContent = "Run an analysis and select an angle first.";
+          return;
+        }
+        $("generationError").hidden = true;
+        const currentOffer = offer();
+        const count = Math.max(1, Math.min(10, Number($("conceptCount").value) || 6));
+        const concepts = templates.slice(0, count).map((template) => ({
+          angleUsed: angle.name,
+          platform: template.platform,
+          format: template.format,
+          hook: template.hook({ angle, offer: currentOffer }),
+          primaryCopy: template.copy({ angle, offer: currentOffer }),
+          visualDirection: template.visual({ angle, offer: currentOffer }),
+          cta: template.cta,
+          rationale: `Grounded in ${angle.name}: ${angle.supportingHooks.slice(0, 2).join(" / ")}`,
+          complianceNotes: complianceNote(currentOffer)
+        }));
+        state.generation = {
+          concepts,
+          angleEvidence: {
+            angleName: angle.name,
+            whyItWorks: angle.whyItWorks,
+            representativeAdIds: angle.representativeAdIds,
+            supportingHooks: angle.supportingHooks
+          },
+          sourceNotes: [
+            "Static demo generated deterministic concepts from the selected angle evidence.",
+            "The full Next.js app can use OpenAI structured outputs when OPENAI_API_KEY is configured."
+          ]
+        };
+        render();
+      }
+
+      function conceptCsv() {
+        if (!state.generation) {
+          return "";
+        }
+        const headers = [
+          "angle",
+          "platform",
+          "format",
+          "hook",
+          "primary_copy",
+          "visual_direction",
+          "cta",
+          "rationale",
+          "compliance_notes"
+        ];
+        const rows = state.generation.concepts.map((concept) => [
+          concept.angleUsed,
+          concept.platform,
+          concept.format,
+          concept.hook,
+          concept.primaryCopy,
+          concept.visualDirection,
+          concept.cta,
+          concept.rationale,
+          concept.complianceNotes
+        ]);
+        return [headers, ...rows]
+          .map((row) => row.map((value) => `"${String(value).replaceAll("\"", "\"\"")}"`).join(","))
+          .join("\n");
+      }
+
+      async function copyText(value) {
+        if (!value) {
+          return;
+        }
+        await navigator.clipboard.writeText(value);
+      }
+
+      function render() {
+        $("empty").hidden = Boolean(state.result);
+        $("adCount").textContent = state.result ? `${state.result.ads.length} ads` : "No run yet";
+        renderInventory();
+        renderAngles();
+        renderConcepts();
+        renderNotes();
+      }
+
+      function renderInventory() {
+        const inventory = $("inventory");
+        inventory.innerHTML = "";
+        for (const ad of state.result?.ads ?? []) {
+          const media = ad.mediaType === "video"
+            ? `<video src="${escapeHtml(ad.mediaUrl)}" controls muted playsinline></video>`
+            : `<img src="${escapeHtml(ad.mediaUrl)}" alt="" />`;
+          inventory.insertAdjacentHTML(
+            "beforeend",
+            `<article class="card">
+              <div class="card-media">${media}</div>
+              <div class="card-body">
+                <div class="chips">
+                  <span class="badge">${escapeHtml(ad.platform)}</span>
+                  <span class="badge ${ad.analysis.complianceRisk === "high" ? "danger" : "neutral"}">${escapeHtml(ad.analysis.complianceRisk)} risk</span>
+                  <span class="badge accent">${ad.strengthScore} strength</span>
+                </div>
+                <h3>${escapeHtml(ad.analysis.hook)}</h3>
+                <p class="subtle">${escapeHtml(ad.caption ?? "")}</p>
+                <dl>
+                  <div><dt>Angle</dt><dd>${escapeHtml(ad.analysis.primaryAngle)}</dd></div>
+                  <div><dt>Longevity</dt><dd>${ad.longevityDays ?? "unknown"} days</dd></div>
+                  <div><dt>Format</dt><dd>${escapeHtml(ad.analysis.format)}</dd></div>
+                  <div><dt>CTA</dt><dd>${escapeHtml(ad.analysis.cta)}</dd></div>
+                </dl>
+              </div>
+            </article>`
+          );
+        }
+      }
+
+      function renderAngles() {
+        const angles = $("angles");
+        angles.innerHTML = "";
+        const current = selectedCluster();
+        $("selectedAngle").textContent = current ? `Using angle: ${current.name}` : "Run analysis first";
+        (state.result?.clusters ?? []).forEach((cluster, index) => {
+          const button = document.createElement("button");
+          button.className = `angle-button ${current?.id === cluster.id ? "selected" : ""}`;
+          button.type = "button";
+          button.innerHTML =
+            `<div class="card-body">
+              <div class="top-row">
+                <span class="badge accent">#${index + 1}</span>
+                <span class="subtle">${cluster.averageStrengthScore} avg strength</span>
+              </div>
+              <h3>${escapeHtml(cluster.name)}</h3>
+              <p class="subtle">${escapeHtml(cluster.whyItWorks)}</p>
+              <div class="chips">
+                <span class="badge neutral">${cluster.frequency} ads</span>
+                <span class="badge neutral">${cluster.representativeAdIds.length} examples</span>
+              </div>
+            </div>`;
+          button.addEventListener("click", () => {
+            state.selectedClusterId = cluster.id;
+            state.generation = null;
+            render();
+          });
+          angles.appendChild(button);
+        });
+      }
+
+      function renderConcepts() {
+        const concepts = $("concepts");
+        concepts.innerHTML = "";
+        if (!state.generation) {
+          return;
+        }
+        concepts.insertAdjacentHTML(
+          "beforeend",
+          `<div class="concept-title"><h2>Creative Concepts</h2><span class="subtle">${state.generation.concepts.length} generated</span></div>`
+        );
+        state.generation.concepts.forEach((concept, index) => {
+          concepts.insertAdjacentHTML(
+            "beforeend",
+            `<article class="card">
+              <div class="card-body">
+                <div class="chips">
+                  <span class="badge accent">#${index + 1}</span>
+                  <span class="badge">${escapeHtml(concept.platform)}</span>
+                  <span class="badge neutral">${escapeHtml(concept.format)}</span>
+                </div>
+                <h3>${escapeHtml(concept.hook)}</h3>
+                <p>${escapeHtml(concept.primaryCopy)}</p>
+                <dl>
+                  <div><dt>Visual direction</dt><dd>${escapeHtml(concept.visualDirection)}</dd></div>
+                  <div><dt>CTA</dt><dd>${escapeHtml(concept.cta)}</dd></div>
+                  <div><dt>Evidence</dt><dd>${escapeHtml(concept.rationale)}</dd></div>
+                  <div><dt>Compliance</dt><dd>${escapeHtml(concept.complianceNotes)}</dd></div>
+                </dl>
+              </div>
+            </article>`
+          );
+        });
+      }
+
+      function renderNotes() {
+        const notes = $("notes");
+        notes.innerHTML = "";
+        const allNotes = [
+          ...(state.result?.sourceNotes ?? []),
+          ...(state.generation?.sourceNotes ?? [])
+        ];
+        for (const note of allNotes) {
+          notes.insertAdjacentHTML("beforeend", `<div class="note">${escapeHtml(note)}</div>`);
+        }
+      }
+
+      $("analyze").addEventListener("click", analyze);
+      $("generate").addEventListener("click", generate);
+      $("copyAngles").addEventListener("click", () =>
+        copyText(state.result ? JSON.stringify({ analysisId: state.result.analysisId, query: state.result.query, clusters: state.result.clusters }, null, 2) : "")
+      );
+      $("copyJson").addEventListener("click", () => copyText(state.generation ? JSON.stringify(state.generation, null, 2) : ""));
+      $("copyCsv").addEventListener("click", () => copyText(conceptCsv()));
+
+      fetch("data/seed/ads.json")
+        .then((response) => response.json())
+        .then((ads) => {
+          state.seedAds = ads;
+        })
+        .catch((error) => {
+          $("error").hidden = false;
+          $("error").textContent = `Unable to load seed ads: ${error.message}`;
+        });
+    </script>
+  </body>
+</html>
