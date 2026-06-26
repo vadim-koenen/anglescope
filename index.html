@@ -432,6 +432,10 @@
               Compliance constraints
               <textarea id="compliance">Do not promise weight loss results or imply medical endorsement.</textarea>
             </label>
+            <label>
+              OpenAI API key <span class="subtle">(optional — enables live AI generation)</span>
+              <input id="apiKey" type="password" autocomplete="off" placeholder="sk-... (used only in your browser, never stored or sent anywhere but OpenAI)" />
+            </label>
             <div class="controls">
               <label>
                 Concepts
@@ -523,7 +527,81 @@
         }
       ];
 
+      const AI_MODEL = "gpt-4o-mini";
+
       const $ = (id) => document.getElementById(id);
+
+      async function generateWithAI(apiKey, angle, currentOffer, count) {
+        const system =
+          "You are a senior direct-response creative strategist for an affiliate/performance marketing team. " +
+          "You write concrete, testable ad concepts grounded in a proven winning angle. " +
+          "Be specific to the product and audience, avoid inflated or non-compliant claims, and return strictly valid JSON.";
+        const user =
+          `Winning angle: ${angle.name}\n` +
+          `Why it works: ${angle.whyItWorks}\n` +
+          `Supporting hooks from real ads: ${angle.supportingHooks.join(" | ")}\n\n` +
+          `Offer:\n` +
+          `- Product: ${currentOffer.product || "(unspecified)"}\n` +
+          `- Audience: ${currentOffer.audience || "(unspecified)"}\n` +
+          `- Key benefit: ${currentOffer.keyBenefit || "(unspecified)"}\n` +
+          `- Brand voice: ${currentOffer.brandVoice || "neutral, credible"}\n` +
+          `- Offer mechanic: ${currentOffer.offerMechanic || "(unspecified)"}\n` +
+          `- Compliance constraints: ${currentOffer.complianceConstraints || "none specified"}\n\n` +
+          `Generate ${count} distinct ad concepts adapting this angle to the offer. ` +
+          `Vary the platform across meta, tiktok, taboola, and google. Each concept must be specific, not generic.\n\n` +
+          `Return JSON exactly in this shape: ` +
+          `{"concepts":[{"platform":"meta|tiktok|taboola|google","format":"string","hook":"string",` +
+          `"primaryCopy":"string","visualDirection":"string","cta":"string",` +
+          `"rationale":"how this ties back to the angle evidence","complianceNotes":"string"}]}`;
+
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: AI_MODEL,
+            temperature: 0.8,
+            response_format: { type: "json_object" },
+            messages: [
+              { role: "system", content: system },
+              { role: "user", content: user }
+            ]
+          })
+        });
+
+        if (!response.ok) {
+          const detail = await response.text().catch(() => "");
+          throw new Error(`OpenAI ${response.status} ${detail.slice(0, 160)}`.trim());
+        }
+
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
+        if (!content) {
+          throw new Error("empty response");
+        }
+        const parsed = JSON.parse(content);
+        const allowed = new Set(["meta", "tiktok", "taboola", "google"]);
+        const concepts = (parsed.concepts ?? [])
+          .slice(0, count)
+          .map((concept) => ({
+            angleUsed: angle.name,
+            platform: allowed.has(concept.platform) ? concept.platform : "meta",
+            format: String(concept.format ?? "Ad concept"),
+            hook: String(concept.hook ?? "").trim(),
+            primaryCopy: String(concept.primaryCopy ?? "").trim(),
+            visualDirection: String(concept.visualDirection ?? "").trim(),
+            cta: String(concept.cta ?? "").trim(),
+            rationale: String(concept.rationale ?? `Grounded in ${angle.name}`).trim(),
+            complianceNotes: String(concept.complianceNotes ?? complianceNote(currentOffer)).trim()
+          }))
+          .filter((concept) => concept.hook && concept.primaryCopy);
+        if (!concepts.length) {
+          throw new Error("model returned no usable concepts");
+        }
+        return concepts;
+      }
 
       function escapeHtml(value) {
         return String(value ?? "")
@@ -703,17 +781,8 @@
           : base;
       }
 
-      function generate() {
-        const angle = selectedCluster();
-        if (!angle) {
-          $("generationError").hidden = false;
-          $("generationError").textContent = "Run an analysis and select an angle first.";
-          return;
-        }
-        $("generationError").hidden = true;
-        const currentOffer = offer();
-        const count = Math.max(1, Math.min(10, Number($("conceptCount").value) || 6));
-        const concepts = templates.slice(0, count).map((template) => ({
+      function deterministicConcepts(angle, currentOffer, count) {
+        return templates.slice(0, count).map((template) => ({
           angleUsed: angle.name,
           platform: template.platform,
           format: template.format,
@@ -724,8 +793,47 @@
           rationale: `Grounded in ${angle.name}: ${angle.supportingHooks.slice(0, 2).join(" / ")}`,
           complianceNotes: complianceNote(currentOffer)
         }));
+      }
+
+      async function generate() {
+        const angle = selectedCluster();
+        if (!angle) {
+          $("generationError").hidden = false;
+          $("generationError").textContent = "Run an analysis and select an angle first.";
+          return;
+        }
+        $("generationError").hidden = true;
+        const currentOffer = offer();
+        const count = Math.max(1, Math.min(10, Number($("conceptCount").value) || 6));
+        const apiKey = $("apiKey").value.trim();
+
+        let concepts = null;
+        let usedAi = false;
+        let aiNote = null;
+
+        if (apiKey) {
+          const button = $("generate");
+          const previousLabel = button.textContent;
+          button.disabled = true;
+          button.textContent = "Generating with AI…";
+          try {
+            concepts = await generateWithAI(apiKey, angle, currentOffer, count);
+            usedAi = true;
+          } catch (error) {
+            aiNote = `Live AI generation failed (${error.message}). Showing deterministic concepts instead.`;
+          } finally {
+            button.disabled = false;
+            button.textContent = previousLabel;
+          }
+        }
+
+        if (!concepts) {
+          concepts = deterministicConcepts(angle, currentOffer, count);
+        }
+
         state.generation = {
           concepts,
+          mode: usedAi ? "openai" : "deterministic",
           angleEvidence: {
             angleName: angle.name,
             whyItWorks: angle.whyItWorks,
@@ -733,8 +841,10 @@
             supportingHooks: angle.supportingHooks
           },
           sourceNotes: [
-            "Static demo generated deterministic concepts from the selected angle evidence.",
-            "The full Next.js app can use OpenAI structured outputs when OPENAI_API_KEY is configured."
+            usedAi
+              ? `Concepts generated live with OpenAI (${AI_MODEL}) from the selected angle evidence.`
+              : "Deterministic concepts generated from the selected angle evidence. Add an OpenAI API key above for live AI generation.",
+            ...(aiNote ? [aiNote] : [])
           ]
         };
         render();
@@ -855,9 +965,13 @@
         if (!state.generation) {
           return;
         }
+        const modeBadge =
+          state.generation.mode === "openai"
+            ? `<span class="badge accent">AI · ${escapeHtml(AI_MODEL)}</span>`
+            : `<span class="badge neutral">deterministic</span>`;
         concepts.insertAdjacentHTML(
           "beforeend",
-          `<div class="concept-title"><h2>Creative Concepts</h2><span class="subtle">${state.generation.concepts.length} generated</span></div>`
+          `<div class="concept-title"><h2>Creative Concepts</h2><span class="subtle">${state.generation.concepts.length} generated ${modeBadge}</span></div>`
         );
         state.generation.concepts.forEach((concept, index) => {
           concepts.insertAdjacentHTML(
