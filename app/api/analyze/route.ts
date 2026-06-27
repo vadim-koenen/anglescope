@@ -10,7 +10,7 @@ import {
 import { getAdSource } from "@/lib/sources";
 import { getSeedFixtures } from "@/lib/sources/seeded";
 import { daysBetween } from "@/lib/utils";
-import { deconstructAdWithVision } from "@/lib/ai/deconstruct";
+import { deconstructAdWithAI } from "@/lib/ai/deconstruct";
 
 function strengthScoreFor(ad: { firstSeen?: string; lastSeen?: string; metrics?: Record<string, number> }) {
   const longevityDays = daysBetween(ad.firstSeen, ad.lastSeen);
@@ -48,7 +48,7 @@ function buildClusters(ads: AnalyzedAd[]): AngleCluster[] {
 
 async function safelyDeconstructAd(rawAd: RawAd) {
   try {
-    return await deconstructAdWithVision(rawAd);
+    return await deconstructAdWithAI(rawAd);
   } catch (error) {
     return {
       analysis: null,
@@ -162,8 +162,8 @@ export async function POST(request: Request) {
     clusters: buildClusters(ads),
     sourceNotes: [
       query.useAi
-        ? "Analyze requested AI deconstruction when remote media was available; fixture analysis was used where AI was skipped."
-        : "Analyze used validated fixture analyses. Set useAi=true with remote media to enable vision deconstruction.",
+        ? "Analyze requested AI deconstruction when remote media or public ad metadata was available; fixture analysis was used where AI was skipped."
+        : "Analyze used validated fixture analyses. Set useAi=true with remote media or public ad metadata to enable AI deconstruction.",
       ...Array.from(sourceNotes)
     ]
   });
