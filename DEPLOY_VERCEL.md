@@ -2,9 +2,9 @@
 
 The GitHub Pages demo is the no-login fallback: it keeps the core buyer workflow
 clickable from a static seed dataset. For the strongest production-style
-submission, deploy the full Next.js app on Vercel so the server can hold
-`OPENAI_API_KEY` and run AI deconstruction/generation without asking a judge to
-provide any credentials.
+submission, deploy the full Next.js app on Vercel so the server can run the
+TikTok Creative Center source adapter and hold `OPENAI_API_KEY` for AI
+deconstruction/generation without asking a judge to provide any credentials.
 
 ## 1. Import The Repo
 
@@ -24,11 +24,13 @@ In the Vercel project, open Settings -> Environment Variables and add:
 | `OPENAI_API_KEY` | yes for live AI | Server-side only. Enables model-backed `/api/analyze` and `/api/generate`. |
 | `ANGLESCOPE_DECONSTRUCT_MODEL` | optional | Vision model. Defaults to `gpt-4o-mini`. |
 | `ANGLESCOPE_REASONING_MODEL` | optional | Generation model. Defaults to `gpt-4o`. |
+| `TIKTOK_CC_COUNTRY` | optional | TikTok Creative Center country code. Defaults to `US`; examples: `GB`, `CA`, `AU`. |
 | `DATABASE_URL` | optional | Reserved for the Prisma persistence milestone. Not required for the current demo. |
 
 If `OPENAI_API_KEY` is absent, the app still works through validated fixture
-analysis and deterministic concept generation. The deploy remains demoable; it
-just runs without live model calls.
+analysis, live TikTok examples when TikTok returns materials, and deterministic
+concept generation. The deploy remains demoable; it just runs without live model
+calls.
 
 ## 3. Deploy
 
@@ -47,4 +49,5 @@ required for the tool to work.
   fallback is the most reliable live artifact.
 
 Either way, keep the GitHub repo URL in the form so the full Next.js source,
-API routes, zod schemas, Prisma scaffold, and deployment path are reviewable.
+API routes, zod schemas, TikTok adapter, Prisma scaffold, and deployment path
+are reviewable.

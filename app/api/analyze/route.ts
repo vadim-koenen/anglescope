@@ -108,7 +108,26 @@ export async function POST(request: Request) {
     requestedSources.map(async (sourceName) => {
       const source = getAdSource(sourceName);
 
-      return source ? source.fetchAds(query) : [];
+      if (!source) {
+        return [];
+      }
+
+      try {
+        const ads = await source.fetchAds(query);
+
+        if (sourceName !== "seeded" && ads.length === 0) {
+          sourceNotes.add(`${sourceName} returned no ads for this query.`);
+        }
+
+        return ads;
+      } catch (error) {
+        sourceNotes.add(
+          error instanceof Error
+            ? `${sourceName} fetch failed: ${error.message}`
+            : `${sourceName} fetch failed with an unknown error.`
+        );
+        return [];
+      }
     })
   );
   const rawAds = rawAdsBySource.flat();

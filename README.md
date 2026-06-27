@@ -12,7 +12,7 @@ The engineering thesis is equally important: useful internal tools should be hon
 
 ## What Does This Tool Do?
 
-The app lets a user enter a vertical, paste a manual ad media URL, run an analysis, inspect an ad inventory, see ranked winning-angle clusters, choose an angle, enter offer details, and generate new creative concepts with JSON/CSV export. `/api/analyze` loads `/data/seed/ads.json`, validates fixtures with zod, computes longevity and strength scores, and returns evidence-backed angle clusters. Manual ads flow through the same `AdSource` interface as seed data. When `useAi=true` and `OPENAI_API_KEY` is configured, the route can run OpenAI vision deconstruction for fully qualified remote or data-URL media, then falls back to saved or generic analysis when AI is unavailable. `/api/generate` uses OpenAI structured outputs when configured and otherwise returns deterministic, evidence-grounded concepts from the same response contract.
+The app lets a user enter a vertical, paste a manual ad media URL, run an analysis, inspect an ad inventory, see ranked winning-angle clusters, choose an angle, enter offer details, and generate new creative concepts with JSON/CSV export. `/api/analyze` loads `/data/seed/ads.json`, validates fixtures with zod, pulls best-effort live examples from TikTok Creative Center when the full Next.js app is running server-side, computes strength scores, and returns evidence-backed angle clusters. Manual ads flow through the same `AdSource` interface as seed and TikTok data. When `useAi=true` and `OPENAI_API_KEY` is configured, the route can run OpenAI vision deconstruction for fully qualified remote or data-URL media, then falls back to saved or generic analysis when AI is unavailable. `/api/generate` uses OpenAI structured outputs when configured and otherwise returns deterministic, evidence-grounded concepts from the same response contract.
 
 ## Why This One?
 
@@ -25,14 +25,14 @@ This is deliberately not a spend dashboard. A dashboard would only become valuab
 - Marketing judgment: I chose a workflow tied to creative testing velocity, not a generic chatbot or vanity dashboard.
 - Data realism: the demo is explicit about what is seeded, what is manual, and what would require internal credentials.
 - AI product sense: model output is constrained behind zod schemas and deterministic fallbacks, so the tool remains usable when an API key or live source is unavailable.
-- Extensible architecture: sources are behind an `AdSource` interface, AI concerns live under `lib/ai`, and the Prisma schema is ready for persisted analysis runs.
+- Extensible architecture: sources are behind an `AdSource` interface, TikTok Creative Center is implemented as a live public-data adapter, AI concerns live under `lib/ai`, and the Prisma schema is ready for persisted analysis runs.
 - Operator empathy: the UI supports the actual loop a buyer would run: search a vertical, inspect examples, select an angle, draft concepts, and export.
 
 ## Minimum Impressive Live Build Bar
 
 The full July 4 version I would ship as the strongest live artifact is:
 
-- Input a vertical, competitor, or keyword, then pull live ads from Meta Ad Library and TikTok Creative Center.
+- Input a vertical, competitor, or keyword, then pull live ads from TikTok Creative Center, with Meta Ad Library as the next source adapter.
 - Use a vision LLM to deconstruct each ad into hook, emotional angle, format, offer mechanic, CTA, and a longevity signal where ads running for a long time are treated as likely winners.
 - Cluster and rank recurring winning angles with evidence from the source ads.
 - Generate 5-10 net-new creative concepts and briefs, including copy and image direction, adapting those winners to one of It's Today Media's offers.
@@ -44,7 +44,7 @@ That is the practical, impressive version: not a fake dashboard, not a generic c
 
 If this became my full-time job, I would close the loop between creative intelligence and performance. First I would connect It's Today Media's own Meta, Google, TikTok, Taboola, landing-page, and lead-quality data so AngleScope could learn from the company's winners and losers instead of only public examples. Then I would correlate creative attributes with ROAS, CPL, lead quality, approval risk, and funnel drop-off. From there, the product becomes a creative operating system: find winning angles, generate compliant variants, match each angle to a landing-page or advertorial treatment, and recommend the next tests based on actual business outcomes.
 
-Near-term build steps would be: persist analyses in Postgres through Prisma, add the TikTok Creative Center live adapter behind the `AdSource` interface, upgrade manual input from media URLs to stored uploads, add compliance pre-flight checks, and create a weekly "angle opportunities" report for the buying team.
+Near-term build steps would be: persist analyses in Postgres through Prisma, harden the TikTok Creative Center adapter with cached snapshots and monitoring, add the Meta Ad Library source adapter, upgrade manual input from media URLs to stored uploads, add compliance pre-flight checks, and create a weekly "angle opportunities" report for the buying team.
 
 ## Stack
 
@@ -73,7 +73,7 @@ npm run lint
 npm run build
 ```
 
-Set `OPENAI_API_KEY` in Vercel to enable model-backed deconstruction and generation. `DATABASE_URL` is reserved for the Prisma persistence milestone; the current demo does not require a database connection to run.
+Set `OPENAI_API_KEY` in Vercel to enable model-backed deconstruction and generation. `TIKTOK_CC_COUNTRY` defaults to `US` and can be set to another TikTok Creative Center country code, such as `GB`, `CA`, or `AU`. `DATABASE_URL` is reserved for the Prisma persistence milestone; the current demo does not require a database connection to run.
 
 If Vercel auth is unavailable, the repository also includes a static `index.html` demo that can be served by GitHub Pages. That static demo runs the same core buyer workflow in-browser from the seed dataset, while the full Next.js source remains available for technical review.
 
@@ -84,6 +84,7 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?sslmode=require"
 OPENAI_API_KEY=""
 ANGLESCOPE_DECONSTRUCT_MODEL="gpt-4o-mini"
 ANGLESCOPE_REASONING_MODEL="gpt-4o"
+TIKTOK_CC_COUNTRY="US"
 ```
 
 `OPENAI_API_KEY` enables model-backed vision deconstruction and creative generation. Without it, the app stays fully demoable through validated fixture analysis and deterministic concept generation. Keep real secrets in local or Vercel environment variables only.
@@ -96,7 +97,7 @@ app/api/generate      OpenAI-backed creative generation with deterministic fallb
 components            Workbench UI and shadcn-style primitives
 data/seed             Seed fixture metadata
 lib/ai                Schemas, model config, OpenAI client, deconstruction, generation
-lib/sources           Source adapter interface plus seeded and manual adapters
+lib/sources           Source adapter interface plus seeded, TikTok Creative Center, and manual adapters
 prisma                Postgres schema
 public/seed-media     Starter fixture visuals
 DEPLOY_VERCEL.md      Server-side deployment path for the full Next.js app
@@ -104,7 +105,7 @@ DEPLOY_VERCEL.md      Server-side deployment path for the full Next.js app
 
 ## Data Posture
 
-The current seed file is a Day 1 wiring fixture and is labeled that way in the data. Before final submission, replace or augment those starter fixtures with curated screenshots or stills from public ad libraries, keep metrics honest, and mark unavailable metrics as unknown. Live TikTok ingestion should augment the seed set, not become a demo dependency.
+The current seed file is a Day 1 wiring fixture and is labeled that way in the data. The full Next.js build now augments those fixtures with a best-effort TikTok Creative Center Top Ads source. TikTok's public endpoint can return no results for narrow or sensitive keywords, so the adapter tries keyword, industry, and broad Top Ads fallbacks while keeping unavailable run-date metrics as unknown. The GitHub Pages fallback remains static by design; server-side TikTok and OpenAI paths require the Next.js deployment.
 
 ## Rights And License
 

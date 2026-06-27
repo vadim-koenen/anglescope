@@ -242,7 +242,7 @@ export function AnalysisWorkbench() {
               <Badge variant="accent">Analyze wired</Badge>
               <Badge variant="accent">Generate wired</Badge>
               <Badge variant={useAi ? "accent" : "neutral"}>Vision {useAi ? "on" : "ready"}</Badge>
-              <Badge variant="neutral">TikTok adapter scaffolded</Badge>
+              <Badge variant="accent">TikTok live source</Badge>
               <Badge variant="neutral">Prisma ready</Badge>
             </div>
           </div>

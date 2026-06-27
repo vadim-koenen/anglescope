@@ -18,7 +18,7 @@ https://github.com/vadim-koenen/anglescope
 
 AngleScope is a creative intelligence engine for affiliate and performance marketing teams. It helps a media buyer analyze ad examples, identify recurring winning angles, and turn those patterns into new creative concepts for an offer.
 
-The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The full Next.js app includes structured API routes, zod validation, OpenAI-ready vision deconstruction, OpenAI-ready creative generation, deterministic fallbacks, seeded ad examples, and manual ad URL input. The GitHub Pages demo keeps the core workflow clickable even without deployment credentials.
+The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The full Next.js app includes structured API routes, zod validation, OpenAI-ready vision deconstruction, OpenAI-ready creative generation, deterministic fallbacks, seeded ad examples, a best-effort live TikTok Creative Center source, and manual ad URL input. The GitHub Pages demo keeps the core workflow clickable even without deployment credentials.
 
 ## Why Did You Build THIS One?
 
@@ -40,7 +40,7 @@ From there, AngleScope becomes a creative operating system for the buying team: 
 
 Near-term build steps would be:
 
-- Input a vertical, competitor, or keyword, then pull live ads from Meta Ad Library and TikTok Creative Center.
+- Input a vertical, competitor, or keyword, then pull live ads from TikTok Creative Center, with Meta Ad Library as the next adapter.
 - Use a vision LLM to deconstruct each ad into hook, emotional angle, format, offer mechanic, CTA, and a longevity signal where ads running for a long time are treated as likely winners.
 - Cluster and rank recurring winning angles with evidence from the source ads.
 - Generate 5-10 net-new creative concepts and briefs, including copy and image direction, adapting those winners to one of It's Today Media's offers.
@@ -53,7 +53,7 @@ Near-term build steps would be:
 
 ## Additional Notes
 
-The project is intentionally practical rather than theatrical. It uses Next.js, TypeScript, Tailwind, zod, Prisma scaffolding, source adapters, and OpenAI-ready structured generation/deconstruction paths. It remains demoable without API keys through validated seed data and deterministic fallbacks.
+The project is intentionally practical rather than theatrical. It uses Next.js, TypeScript, Tailwind, zod, Prisma scaffolding, source adapters, and OpenAI-ready structured generation/deconstruction paths. It remains demoable without API keys through validated seed data and deterministic fallbacks, and the full Next.js server path can pull public TikTok Creative Center Top Ads examples when the public endpoint returns materials.
 
 The main thing I wanted to show is fit for the role: marketing judgment, AI implementation skill, data realism, and the ability to turn an ambiguous business workflow into a usable internal tool.
 
