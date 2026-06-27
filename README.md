@@ -9,7 +9,7 @@ AngleScope is a creative intelligence engine for affiliate and performance marke
 - Live-source test query in the server app: vertical `weight loss supplement`, keyword `shilajit`.
 - Evaluation notes: see [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
 
-The public URL is a static GitHub Pages fallback so the buyer workflow is always clickable. The full Next.js app in this repository contains the server-side TikTok Creative Center source and optional OpenAI deconstruction/generation paths.
+The public URL is a static GitHub Pages fallback so the buyer workflow is always clickable. The full Next.js app in this repository contains the server-side TikTok Creative Center source and optional OpenAI deconstruction/generation paths. Use [DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) for the preferred Vercel path or [DEPLOY_RENDER.md](DEPLOY_RENDER.md) if Vercel authentication is blocked.
 
 ## Why This Is My Submission
 
@@ -109,7 +109,9 @@ lib/ai                Schemas, model config, OpenAI client, deconstruction, gene
 lib/sources           Source adapter interface plus seeded, TikTok Creative Center, and manual adapters
 prisma                Postgres schema
 public/seed-media     Starter fixture visuals
-DEPLOY_VERCEL.md      Server-side deployment path for the full Next.js app
+DEPLOY_VERCEL.md      Preferred server-side deployment path for the full Next.js app
+DEPLOY_RENDER.md      Alternate server deployment path if Vercel authentication is blocked
+render.yaml           Render Blueprint for the alternate server deployment
 ```
 
 ## Data Posture

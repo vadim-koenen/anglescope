@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: anglescope
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: TIKTOK_CC_COUNTRY
+        value: US
+      - key: ANGLESCOPE_DECONSTRUCT_MODEL
+        value: gpt-4o-mini
+      - key: ANGLESCOPE_REASONING_MODEL
+        value: gpt-4o
+      - key: OPENAI_API_KEY
+        sync: false
