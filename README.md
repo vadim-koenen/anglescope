@@ -6,6 +6,7 @@ AngleScope is a creative intelligence engine for affiliate and performance marke
 
 - Full live demo: `https://anglescope-wuov.onrender.com/`
 - Suggested test: vertical `weight loss supplement`, keyword `shilajit`, enable `AI vision`, then click Analyze.
+- In-app video: the Watch Demo card includes a 63-second MP4 walkthrough.
 - Static fallback: `https://vadim-koenen.github.io/anglescope/`
 - Local server app: run `npm install`, `cp .env.example .env.local`, and `npm run dev`.
 - Evaluation notes: see [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
@@ -110,6 +111,8 @@ lib/ai                Schemas, model config, OpenAI client, deconstruction, gene
 lib/sources           Source adapter interface plus seeded, TikTok Creative Center, and manual adapters
 prisma                Postgres schema
 public/seed-media     Starter fixture visuals
+public/demo           In-app MP4 walkthrough and poster image
+scripts               Reproducible demo-video slide renderer and MP4 encoder
 DEPLOY_VERCEL.md      Preferred server-side deployment path for the full Next.js app
 DEPLOY_RENDER.md      Alternate server deployment path if Vercel authentication is blocked
 render.yaml           Render Blueprint for the alternate server deployment

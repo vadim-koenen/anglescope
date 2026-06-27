@@ -24,7 +24,7 @@ https://github.com/vadim-koenen/anglescope
 
 AngleScope is a creative intelligence engine for affiliate and performance marketing teams. It helps a media buyer analyze ad examples, identify recurring winning angles, and turn those patterns into new creative concepts for an offer.
 
-The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The live Render demo runs the full Next.js server app, including structured API routes, zod validation, OpenAI-backed ad deconstruction/generation, deterministic fallbacks, seeded ad examples, best-effort live TikTok Creative Center ingestion, and manual ad URL input. The GitHub Pages demo remains available as a static fallback.
+The workflow is: enter a vertical, inspect an ad inventory, see ranked angle clusters, choose a winning angle, enter offer details, and generate platform-specific creative concepts with JSON/CSV export. The live Render demo runs the full Next.js server app, including structured API routes, zod validation, OpenAI-backed ad deconstruction/generation, deterministic fallbacks, seeded ad examples, best-effort live TikTok Creative Center ingestion, manual ad URL input, and an embedded 63-second Watch Demo walkthrough. The GitHub Pages demo remains available as a static fallback.
 
 ## Why Did You Build THIS One?
 
@@ -61,7 +61,7 @@ Near-term build steps would be:
 
 The project is intentionally practical rather than theatrical. It uses Next.js, TypeScript, Tailwind, zod, Prisma scaffolding, source adapters, and OpenAI-backed structured generation/deconstruction paths. The Render demo runs the full server app, can pull public TikTok Creative Center Top Ads examples when the public endpoint returns materials, and uses deterministic fallbacks when a source or model is unavailable.
 
-Reviewer note: the Render demo is hosted on a free instance, so the first load may take up to a minute if the service is asleep. Suggested test query: vertical `weight loss supplement`, keyword `shilajit`, enable `AI vision`, then click Analyze. Static fallback: `https://vadim-koenen.github.io/anglescope/`. I also added `docs/EVALUATION_GUIDE.md` with exact evaluation steps and source-boundary notes.
+Reviewer note: the Render demo is hosted on a free instance, so the first load may take up to a minute if the service is asleep. The app includes a Watch Demo video in the right-hand panel. Suggested live test query: vertical `weight loss supplement`, keyword `shilajit`, enable `AI vision`, then click Analyze. Static fallback: `https://vadim-koenen.github.io/anglescope/`. I also added `docs/EVALUATION_GUIDE.md` with exact evaluation steps and source-boundary notes.
 
 The main thing I wanted to show is fit for the role: marketing judgment, AI implementation skill, data realism, and the ability to turn an ambiguous business workflow into a usable internal tool.
 

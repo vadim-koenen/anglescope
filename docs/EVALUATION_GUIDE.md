@@ -6,10 +6,11 @@ This guide is written for a reviewer who wants to understand the project quickly
 
 1. Open the public demo:
    `https://anglescope-wuov.onrender.com/`
-2. Enter vertical `weight loss supplement` and keyword `shilajit`.
-3. Enable `AI vision`, then click Analyze.
-4. Inspect the ad inventory, ranked angle clusters, and generated concepts.
-5. Review the full Next.js source for the server-side TikTok Creative Center and OpenAI paths.
+2. Watch the 63-second demo video in the right-hand panel if you want the quick tour.
+3. Enter vertical `weight loss supplement` and keyword `shilajit`.
+4. Enable `AI vision`, then click Analyze.
+5. Inspect the ad inventory, ranked angle clusters, and generated concepts.
+6. Review the full Next.js source for the server-side TikTok Creative Center and OpenAI paths.
 
 The Render URL runs the full server app, including TikTok Creative Center ingestion and OpenAI-backed analysis/generation. The GitHub Pages URL is a static fallback so the core buyer workflow is always clickable if a server host is unavailable.
 

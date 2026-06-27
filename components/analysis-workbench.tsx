@@ -9,6 +9,7 @@ import {
   FileJson,
   ImagePlus,
   Loader2,
+  PlayCircle,
   Search,
   Sparkles,
   Table2
@@ -386,6 +387,27 @@ export function AnalysisWorkbench() {
         </div>
 
         <aside className="grid content-start gap-4">
+          <Card className="overflow-hidden">
+            <CardHeader className="space-y-2">
+              <div className="flex items-center justify-between">
+                <CardTitle>Watch Demo</CardTitle>
+                <PlayCircle className="h-5 w-5 text-primary" />
+              </div>
+              <p className="text-sm text-muted-foreground">A 63-second walkthrough of the reviewer path.</p>
+            </CardHeader>
+            <CardContent>
+              <video
+                className="aspect-video w-full rounded-md border border-border bg-muted"
+                controls
+                playsInline
+                preload="metadata"
+                poster="/demo/anglescope-walkthrough-poster.png"
+              >
+                <source src="/demo/anglescope-walkthrough.mp4" type="video/mp4" />
+              </video>
+            </CardContent>
+          </Card>
+
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Winning Angles</h2>
             <BarChart3 className="h-5 w-5 text-muted-foreground" />
