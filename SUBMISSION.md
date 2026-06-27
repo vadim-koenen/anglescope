@@ -2,11 +2,13 @@
 
 ## Demo URL
 
-Use the GitHub Pages URL after publishing:
+Use the GitHub Pages URL:
 
 ```text
 https://vadim-koenen.github.io/anglescope/
 ```
+
+If a full server deployment is available before submission, use that URL instead and keep the GitHub Pages link as a fallback in Additional Notes.
 
 ## GitHub Repo URL
 
@@ -54,6 +56,8 @@ Near-term build steps would be:
 ## Additional Notes
 
 The project is intentionally practical rather than theatrical. It uses Next.js, TypeScript, Tailwind, zod, Prisma scaffolding, source adapters, and OpenAI-ready structured generation/deconstruction paths. It remains demoable without API keys through validated seed data and deterministic fallbacks, and the full Next.js server path can pull public TikTok Creative Center Top Ads examples when the public endpoint returns materials.
+
+Reviewer note: the submitted GitHub Pages URL is the static fallback, so it does not execute server-side API routes. The full Next.js app in the GitHub repo includes the TikTok Creative Center source adapter and optional OpenAI-backed analysis/generation paths. I added `docs/EVALUATION_GUIDE.md` with exact local/server evaluation steps and a suggested live-source test query.
 
 The main thing I wanted to show is fit for the role: marketing judgment, AI implementation skill, data realism, and the ability to turn an ambiguous business workflow into a usable internal tool.
 

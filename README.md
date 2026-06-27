@@ -2,6 +2,15 @@
 
 AngleScope is a creative intelligence engine for affiliate and performance marketing teams. It analyzes public ad examples, deconstructs why each one works, clusters recurring winning angles, and prepares the evidence needed to generate new creative concepts for a buyer's offer.
 
+## Reviewer Fast Path
+
+- Public clickable demo: `https://vadim-koenen.github.io/anglescope/`
+- Full server app: run `npm install`, `cp .env.example .env.local`, and `npm run dev`.
+- Live-source test query in the server app: vertical `weight loss supplement`, keyword `shilajit`.
+- Evaluation notes: see [docs/EVALUATION_GUIDE.md](docs/EVALUATION_GUIDE.md).
+
+The public URL is a static GitHub Pages fallback so the buyer workflow is always clickable. The full Next.js app in this repository contains the server-side TikTok Creative Center source and optional OpenAI deconstruction/generation paths.
+
 ## Why This Is My Submission
 
 I built AngleScope to make the strongest case that I understand the actual work of a performance marketing team, not just how to wrap an LLM in a nice interface.
