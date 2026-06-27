@@ -40,8 +40,12 @@ From there, AngleScope becomes a creative operating system for the buying team: 
 
 Near-term build steps would be:
 
+- Input a vertical, competitor, or keyword, then pull live ads from Meta Ad Library and TikTok Creative Center.
+- Use a vision LLM to deconstruct each ad into hook, emotional angle, format, offer mechanic, CTA, and a longevity signal where ads running for a long time are treated as likely winners.
+- Cluster and rank recurring winning angles with evidence from the source ads.
+- Generate 5-10 net-new creative concepts and briefs, including copy and image direction, adapting those winners to one of It's Today Media's offers.
+- Deploy the full Next.js app to Vercel so server-side AI works from a public live URL.
 - Persist analysis runs and generated concepts in Postgres.
-- Add a live TikTok Creative Center source adapter.
 - Upgrade manual URL input to stored uploads.
 - Add compliance pre-flight checks for risky claims.
 - Generate weekly angle-opportunity reports for the media buying team.

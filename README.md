@@ -28,6 +28,18 @@ This is deliberately not a spend dashboard. A dashboard would only become valuab
 - Extensible architecture: sources are behind an `AdSource` interface, AI concerns live under `lib/ai`, and the Prisma schema is ready for persisted analysis runs.
 - Operator empathy: the UI supports the actual loop a buyer would run: search a vertical, inspect examples, select an angle, draft concepts, and export.
 
+## Minimum Impressive Live Build Bar
+
+The full July 4 version I would ship as the strongest live artifact is:
+
+- Input a vertical, competitor, or keyword, then pull live ads from Meta Ad Library and TikTok Creative Center.
+- Use a vision LLM to deconstruct each ad into hook, emotional angle, format, offer mechanic, CTA, and a longevity signal where ads running for a long time are treated as likely winners.
+- Cluster and rank recurring winning angles with evidence from the source ads.
+- Generate 5-10 net-new creative concepts and briefs, including copy and image direction, adapting those winners to one of It's Today Media's offers.
+- Deploy the full Next.js app to Vercel so server-side AI works from a public live URL.
+
+That is the practical, impressive version: not a fake dashboard, not a generic chatbot, but an end-to-end creative intelligence loop a media buyer could actually use. The current repo is structured for that path: source adapters, zod contracts, OpenAI-ready deconstruction/generation, Prisma persistence scaffolding, manual input, deterministic fallbacks, and a GitHub Pages fallback demo while Vercel auth is unavailable.
+
 ## What's Next?
 
 If this became my full-time job, I would close the loop between creative intelligence and performance. First I would connect It's Today Media's own Meta, Google, TikTok, Taboola, landing-page, and lead-quality data so AngleScope could learn from the company's winners and losers instead of only public examples. Then I would correlate creative attributes with ROAS, CPL, lead quality, approval risk, and funnel drop-off. From there, the product becomes a creative operating system: find winning angles, generate compliant variants, match each angle to a landing-page or advertorial treatment, and recommend the next tests based on actual business outcomes.
@@ -87,6 +99,7 @@ lib/ai                Schemas, model config, OpenAI client, deconstruction, gene
 lib/sources           Source adapter interface plus seeded and manual adapters
 prisma                Postgres schema
 public/seed-media     Starter fixture visuals
+DEPLOY_VERCEL.md      Server-side deployment path for the full Next.js app
 ```
 
 ## Data Posture
