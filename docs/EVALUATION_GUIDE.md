@@ -5,13 +5,13 @@ This guide is written for a reviewer who wants to understand the project quickly
 ## Fast Review Path
 
 1. Open the public demo:
-   `https://vadim-koenen.github.io/anglescope/`
-2. Enter a vertical such as `weight loss supplement`, `solar`, or `insurance`.
-3. Click Analyze.
+   `https://anglescope-wuov.onrender.com/`
+2. Enter vertical `weight loss supplement` and keyword `shilajit`.
+3. Enable `AI vision`, then click Analyze.
 4. Inspect the ad inventory, ranked angle clusters, and generated concepts.
 5. Review the full Next.js source for the server-side TikTok Creative Center and OpenAI paths.
 
-The GitHub Pages URL is a static fallback so the core buyer workflow is always clickable. The full server app in this repository contains the live-source and AI routes that require a server runtime.
+The Render URL runs the full server app, including TikTok Creative Center ingestion and OpenAI-backed analysis/generation. The GitHub Pages URL is a static fallback so the core buyer workflow is always clickable if a server host is unavailable.
 
 ## Full Server Evaluation
 
@@ -44,7 +44,7 @@ ANGLESCOPE_DECONSTRUCT_MODEL="gpt-4o-mini"
 ANGLESCOPE_REASONING_MODEL="gpt-4o"
 ```
 
-With an API key, `/api/analyze` can deconstruct qualified remote media through a vision model, and `/api/generate` can generate structured creative briefs from the selected angle. Without an API key, both routes stay usable through validated seed analysis and deterministic, evidence-grounded fallbacks.
+With an API key, `/api/analyze` can deconstruct remote image ads through a vision model and classify public TikTok video ads from caption/metadata. `/api/generate` can generate structured creative briefs from the selected angle. Without an API key, both routes stay usable through validated seed analysis and deterministic, evidence-grounded fallbacks.
 
 ## What To Judge
 
